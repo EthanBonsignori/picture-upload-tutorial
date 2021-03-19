@@ -4,7 +4,7 @@ body {
   color: #fff;
 }
 
-.wrapper {
+.App {
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -22,22 +22,14 @@ body {
   background-position: center;
 }
 
-.button-wrapper {
-  width: 200px;
-  display: flex;
-  justify-content: space-evenly;
-  margin: 1rem;
-}
-
-.button-wrapper button {
+.upload-label {
   cursor: pointer;
-  padding: 0.5em 1em;
-  background: none;
-  color: #fff;
+  margin: 1em;
+  padding: 5px 10px;
   border: 1px solid #fff;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
-.button-wrapper button:hover {
+.upload-label:hover {
   background: rgba(255, 255, 255, 0.2);
 }
