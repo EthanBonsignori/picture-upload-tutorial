@@ -1,38 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CropModal from './CropModal';
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [imageBase64, setImageBase64] = useState('');
 
   // Placeholder, will fetch url from Database when setup
   const profilePictureUrl = "https://placehold.it/200x200"
 
-  const handleChange = (evt) => {
-    const reader = new FileReader();
-    const file = evt.target.files[0];
+  const toggleModal = () => {
+    setIsOpen(!isOpen)
+  };
 
+  const handleChange = (evt) => {
+    const file = evt.target.files[0];
+    const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    // when the file is converted
     reader.onload = () => {
-      console.log(reader.result)
+      setImageBase64(reader.result)
+      toggleModal();
     }
 
-    // log errors
     reader.onerror = (err) => {
-      console.log(err)
+      console.error(err)
     }
-  }
+  };
 
   return (
     <div className="App">
+      <CropModal
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        imageBase64={imageBase64}
+      />
       <h3>Profile Picture Upload</h3>
       <img className="profile-picture" alt="profile" src={profilePictureUrl} />
-      <label htmlFor="upload" className="upload-label">Change Profile Picture</label>
-      <input // file upload
-        type="file"
-        accept="image/*"
+      <label className="upload-label" htmlFor="upload">Change Profile Picture</label>
+      <input
         id="upload"
+        type="file"
+        accept="image/*" // Only accept image files (.jpg, .png, .gif, etc)
+        style={{ display: "none" }}
         onChange={handleChange}
-        style={{ display: 'none' }}
       />
     </div>
   );
